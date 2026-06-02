@@ -102,7 +102,7 @@ def dashboard():
 
 @app.route('/logout')
 def logout():
-    # Clear the session data
+  
     session.clear()
     return redirect(url_for('index'))
 
