@@ -1,11 +1,10 @@
 from flask import Flask, render_template, request, redirect, url_for, session
 
 app = Flask(__name__)
-# Secret key is required to use sessions (keeping users logged in)
+
 app.secret_key = "super_secret_matrimony_key"
 
-# Dummy database simulating registered users
-# Pre-populated with a few profiles for immediate testing
+
 USER_PROFILES = [
     {
         "username": "rahim",
@@ -56,7 +55,7 @@ def register():
         profession = request.form.get('profession')
         bio = request.form.get('bio')
         
-        # Create a new profile dictionary
+        
         new_profile = {
             "username": username,
             "name": name,
@@ -66,10 +65,10 @@ def register():
             "bio": bio
         }
         
-        # Add to our fake database
+     
         USER_PROFILES.append(new_profile)
         
-        # Log the user into the session automatically
+        
         session['logged_in_user'] = username
         session['user_gender'] = gender
         
@@ -79,21 +78,21 @@ def register():
 
 @app.route('/dashboard')
 def dashboard():
-    # If a user tries to access dashboard without registering/logging in, send them home
+  
     if 'logged_in_user' not in session:
         return redirect(url_for('index'))
     
     current_username = session['logged_in_user']
     current_gender = session['user_gender']
     
-    # Find the current user's full details
+   
     user_info = None
     for profile in USER_PROFILES:
         if profile['username'] == current_username:
             user_info = profile
             break
 
-    # Find matches (Opposite gender)
+   
     matches = []
     for profile in USER_PROFILES:
         if profile['gender'] != current_gender:
