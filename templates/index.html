@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div style="text-align: center; padding: 20px;">
+    <h2>Find Your Perfect Life Partner</h2>
+    <p style="font-size: 18px; color: #666; margin-bottom: 30px;">
+        Join thousands of profiles and find your soulmate today with our easy-to-use platform.
+    </p>
+    
+    {% if session.get('logged_in_user') %}
+        <a href="{{ url_for('dashboard') }}"><button style="width: auto; padding: 15px 40px;">Go to Dashboard</button></a>
+    {% else %}
+        <a href="{{ url_for('register') }}"><button style="width: auto; padding: 15px 40px;">Create Your Profile Now</button></a>
+    {% endif %}
+</div>
+{% endblock %}

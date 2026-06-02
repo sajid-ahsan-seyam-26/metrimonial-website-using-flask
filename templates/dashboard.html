@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Welcome, {{ user.name }}!</h2>
+<p style="margin-bottom: 30px; color: #555;">Here is your dashboard where you can find compatible life partners.</p>
+
+<div style="border-left: 4px solid #e91e63; padding-left: 15px; margin-bottom: 40px; background: #fff5f8; padding-top: 10px; padding-bottom: 10px;">
+    <h4>Your Registered Details:</h4>
+    <p><strong>Age:</strong> {{ user.age }} | <strong>Profession:</strong> {{ user.profession }}</p>
+</div>
+
+<hr style="margin-bottom: 30px; border: 0; border-top: 1px solid #ddd;">
+
+<h3>🎯 Suggested Matches For You</h3>
+<p style="color: #777; margin-bottom: 20px;">Showing opposite gender profiles:</p>
+
+{% if matches %}
+    {% for match in matches %}
+        <div class="profile-card">
+            <h3 style="color: #333;">{{ match.name }} <span class="badge">{{ match.gender }}</span></h3>
+            <p style="margin: 5px 0;"><strong>Age:</strong> {{ match.age }} years old</p>
+            <p style="margin: 5px 0;"><strong>Profession:</strong> {{ match.profession }}</p>
+            <p style="color: #666; font-style: italic; margin-top: 8px;">"{{ match.bio }}"</p>
+            
+            <button class="connect-btn" onclick="sendInterest('{{ match.name }}')">Send Express Interest</button>
+        </div>
+    {% endfor %}
+{% else %}
+    <p>No matches found at the moment. Check back later!</p>
+{% endif %}
+
+<script>
+    function sendInterest(partnerName) {
+        alert("💖 Your interest has been sent to " + partnerName + "! They will be notified.");
+    }
+</script>
+{% endblock %}
